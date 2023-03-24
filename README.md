@@ -1,3 +1,5 @@
+An app based on a [publicly available design](https://www.figma.com/file/1gEKtGkPW4Tw41dw6kuzSJ/Weather-App-(Community)?node-id=0-1&t=JF3EbgYD4N3fFZr1-0) and [API](https://openweathermap.org/api)
+
 ### How do I get set up?
 
 FVM

@@ -1,5 +1,7 @@
 # Makefile only allow Tabs when indenting code! "missing separator" error otherwise.
-check: format analyze metrics
+check: prebuild format analyze metrics
+prebuild:
+	@fvm flutter pub run build_runner build
 format:
 	@echo "\033[32m Formatting code... \033[0m"
 	@fvm dart format lib test
