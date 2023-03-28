@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:yet_another_weather_app/features/weather_general/weather_general.dart';
+import 'package:yet_another_weather_app/weather/presentation/weather_general.dart';
 
-import 'features/weather_details/weather_details.dart';
+import 'weather/presentation/weather_details.dart';
 
 final _router = GoRouter(
   routes: <RouteBase>[
@@ -22,7 +23,7 @@ final _router = GoRouter(
 );
 
 void main() {
-  runApp(const MainApp());
+  runApp(const ProviderScope(child: MainApp()));
 }
 
 class MainApp extends StatelessWidget {
