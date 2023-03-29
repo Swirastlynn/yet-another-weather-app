@@ -1,10 +1,10 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'weather_response_dto.g.dart';
+part 'current_weather_response_dto.g.dart';
 
 @JsonSerializable()
-class WeatherResponseDTO extends Equatable {
+class CurrentWeatherResponseDTO extends Equatable {
   final Coord coord;
   final List<Weather> weather;
   final String base;
@@ -19,7 +19,7 @@ class WeatherResponseDTO extends Equatable {
   final String name;
   final int cod;
 
-  const WeatherResponseDTO({
+  const CurrentWeatherResponseDTO({
     required this.coord,
     required this.weather,
     required this.base,
@@ -35,10 +35,10 @@ class WeatherResponseDTO extends Equatable {
     required this.cod,
   });
 
-  factory WeatherResponseDTO.fromJson(Map<String, dynamic> json) =>
-      _$WeatherResponseDTOFromJson(json);
+  factory CurrentWeatherResponseDTO.fromJson(Map<String, dynamic> json) =>
+      _$CurrentWeatherResponseDTOFromJson(json);
 
-  Map<String, dynamic> toJson() => _$WeatherResponseDTOToJson(this);
+  Map<String, dynamic> toJson() => _$CurrentWeatherResponseDTOToJson(this);
 
   @override
   List<Object?> get props => [

@@ -1,13 +1,14 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'weather_response_dto.dart';
+part of 'current_weather_response_dto.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-WeatherResponseDTO _$WeatherResponseDTOFromJson(Map<String, dynamic> json) =>
-    WeatherResponseDTO(
+CurrentWeatherResponseDTO _$CurrentWeatherResponseDTOFromJson(
+        Map<String, dynamic> json) =>
+    CurrentWeatherResponseDTO(
       coord: Coord.fromJson(json['coord'] as Map<String, dynamic>),
       weather: (json['weather'] as List<dynamic>)
           .map((e) => Weather.fromJson(e as Map<String, dynamic>))
@@ -25,7 +26,8 @@ WeatherResponseDTO _$WeatherResponseDTOFromJson(Map<String, dynamic> json) =>
       cod: json['cod'] as int,
     );
 
-Map<String, dynamic> _$WeatherResponseDTOToJson(WeatherResponseDTO instance) =>
+Map<String, dynamic> _$CurrentWeatherResponseDTOToJson(
+        CurrentWeatherResponseDTO instance) =>
     <String, dynamic>{
       'coord': instance.coord,
       'weather': instance.weather,
