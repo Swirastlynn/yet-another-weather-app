@@ -1,16 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:yet_another_weather_app/weather/presentation/current_weather_controller.dart';
 
-final helloWorldProvider = Provider<String>((ref) {
-  return 'Hello world';
-});
-
-class WeatherGeneral extends ConsumerWidget {
+class WeatherGeneral extends ConsumerStatefulWidget {
   const WeatherGeneral({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ConsumerStatefulWidget> createState() => _WeatherGeneralState();
+}
+
+class _WeatherGeneralState extends ConsumerState<WeatherGeneral> {
+  @override
+  void initState() {
+    super.initState();
+    ref.read(currentWeatherControllerProvider.notifier).getWeather();
+  }
+  @override
+  Widget build(BuildContext context) {
+    var model = ref.watch(currentWeatherControllerProvider);
     return Scaffold(
       body: SizedBox(
         width: double.infinity,
@@ -20,9 +28,8 @@ class WeatherGeneral extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.max,
           children: [
-            Text(
-              ref.watch(helloWorldProvider),
-            ),
+            Text(model.temperature.toString()),
+            Text(model.timestamp.toString()),
             OutlinedButton(
                 onPressed: () {
                   context.go('/details');

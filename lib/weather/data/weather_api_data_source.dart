@@ -23,7 +23,14 @@ class WeatherApiDataSource {
 
 final weatherDataSourceProvider = Provider<WeatherApiDataSource>((ref) {
   return WeatherApiDataSource(
-    api: DioApiManager(), // todo inject
-    baseUrl: "https://api.openweathermap.org/data/2.5",
+    api: ref.watch(dioApiManagerProvider),
+    baseUrl: ref.read(baseUrlProvider),
   );
 });
+
+final dioApiManagerProvider = Provider<DioApiManager>((ref) {
+  return DioApiManager();
+});
+
+final baseUrlProvider =
+    Provider<String>((ref) => "https://api.openweathermap.org/data/2.5");

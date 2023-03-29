@@ -2,13 +2,28 @@ import 'package:equatable/equatable.dart';
 import 'package:yet_another_weather_app/weather/data/current_weather_response_dto.dart';
 
 class CurrentWeatherModel extends Equatable {
-  final int timestamp;
-  final String iconCode;
-  final double temperature;
-  final int pressure;
-  final int humidity;
-  final double windSpeed;
-  final int cloudiness;
+  const CurrentWeatherModel({
+    required this.timestamp,
+    required this.iconCode,
+    required this.temperature,
+    required this.pressure,
+    required this.humidity,
+    required this.windSpeed,
+    required this.cloudiness,
+  });
+
+  factory CurrentWeatherModel.empty() {
+    // todo add Result instead, make this model non-nullable then
+    return const CurrentWeatherModel(
+      timestamp: null,
+      iconCode: null,
+      temperature: null,
+      pressure: null,
+      humidity: null,
+      windSpeed: null,
+      cloudiness: null,
+    );
+  }
 
   factory CurrentWeatherModel.from(CurrentWeatherResponseDTO dto) {
     return CurrentWeatherModel(
@@ -22,15 +37,13 @@ class CurrentWeatherModel extends Equatable {
     );
   }
 
-  const CurrentWeatherModel({
-    required this.timestamp,
-    required this.iconCode,
-    required this.temperature,
-    required this.pressure,
-    required this.humidity,
-    required this.windSpeed,
-    required this.cloudiness,
-  });
+  final int? timestamp;
+  final String? iconCode;
+  final double? temperature;
+  final int? pressure;
+  final int? humidity;
+  final double? windSpeed;
+  final int? cloudiness;
 
   @override
   List<Object?> get props => [
