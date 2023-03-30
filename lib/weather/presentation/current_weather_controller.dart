@@ -4,28 +4,30 @@ import 'package:yet_another_weather_app/weather/domain/current_weather_model.dar
 
 import '../../env/env.dart';
 
-// todo StateNotifierProvider is legacy
-final currentWeatherControllerProvider =
-    StateNotifierProvider<CurrentWeatherController, CurrentWeatherModel>(
-  (ref) => CurrentWeatherController(ref.read(weatherDataSourceProvider)),
-);
+// todo or FutureProvider/AsyncNotifierProvider?
+// todo StateNotifierProvider is legacy. NotifierProvider?
+final currentWeatherControllerProvider = StateNotifierProvider<
+        CurrentWeatherController, AsyncValue<CurrentWeatherModel>>(
+    (ref) => CurrentWeatherController(ref.watch(weatherDataSourceProvider)));
 
-// todo Either
+// todo Either?
 
-class CurrentWeatherController extends StateNotifier<CurrentWeatherModel> {
+class CurrentWeatherController
+    extends StateNotifier<AsyncValue<CurrentWeatherModel>> {
   CurrentWeatherController(this.weatherDataSource)
-      : super(CurrentWeatherModel.empty());
+      : super(AsyncValue.data(CurrentWeatherModel.empty())) {
+    getWeather();
+  }
 
   final WeatherApiDataSource weatherDataSource;
 
-// get apiKey from env package and env.dart
-
   Future<void> getWeather() async {
-    final dto = await weatherDataSource.getWeather(
+    state = const AsyncValue.loading();
+    final weatherDto = await weatherDataSource.getWeather(
       cityId: "2643743",
       appId: Env.openWeatherApiKey,
       units: "metric",
     );
-    state = CurrentWeatherModel.from(dto);
+    state = AsyncValue.data(CurrentWeatherModel.from(weatherDto));
   }
 }

@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:yet_another_weather_app/weather/presentation/current_weather_controller.dart';
 
+import '../domain/current_weather_model.dart';
+
 class WeatherGeneral extends ConsumerStatefulWidget {
   const WeatherGeneral({super.key});
 
@@ -12,13 +14,22 @@ class WeatherGeneral extends ConsumerStatefulWidget {
 
 class _WeatherGeneralState extends ConsumerState<WeatherGeneral> {
   @override
-  void initState() {
-    super.initState();
-    ref.read(currentWeatherControllerProvider.notifier).getWeather();
-  }
-  @override
   Widget build(BuildContext context) {
-    var model = ref.watch(currentWeatherControllerProvider);
+    AsyncValue<CurrentWeatherModel> state =
+        ref.watch(currentWeatherControllerProvider);
+
+    // todo an article about how to have cookie and eat it - snackbar and beatiful handling of loading/data
+    // ref.listen<AsyncValue<CurrentWeatherModel>>(
+    //   currentWeatherControllerProvider,
+    //   (_, state) => state.whenOrNull(
+    //     error: (error, _) {
+    //       ScaffoldMessenger.of(context).showSnackBar(
+    //         SnackBar(content: Text(error.toString())),
+    //       );
+    //     },
+    //   ),
+    // );
+
     return Scaffold(
       body: SizedBox(
         width: double.infinity,
@@ -28,8 +39,11 @@ class _WeatherGeneralState extends ConsumerState<WeatherGeneral> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.max,
           children: [
-            Text(model.temperature.toString()),
-            Text(model.timestamp.toString()),
+            state.when(
+              data: (item) => Text(item.temperature?.toString() ?? ""),
+              loading: () => const CircularProgressIndicator(),
+              error: (e, st) => Center(child: Text(e.toString())),
+            ),
             OutlinedButton(
                 onPressed: () {
                   context.go('/details');
