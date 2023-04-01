@@ -45,10 +45,15 @@ class _WeatherGeneralState extends ConsumerState<WeatherGeneral> {
               error: (e, st) => Center(child: Text(e.toString())),
             ),
             OutlinedButton(
-                onPressed: () {
-                  context.go('/details');
-                },
-                child: const Text('Weather Details'))
+              onPressed: () {
+                context.go('/details');
+              },
+              child: const Text('Weather Details'),
+            ),
+            TextButton(
+              onPressed: () => throw Exception(),
+              child: const Text("Throw Test Exception"),
+            ),
           ],
         ),
       ),

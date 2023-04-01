@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "739360248769",
+    "project_id": "yet-another-weather-app-ffefc",
+    "storage_bucket": "yet-another-weather-app-ffefc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:739360248769:android:596b614725dda9e21e5540",
+        "android_client_info": {
+          "package_name": "com.example.yet_another_weather_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "739360248769-lt71o7h556g3mlv9su4a6h09df4tqnp9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQnvtGzy41kvYaU-uBHHX2BRrHJ5omlig"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "739360248769-lt71o7h556g3mlv9su4a6h09df4tqnp9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

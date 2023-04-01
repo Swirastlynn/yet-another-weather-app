@@ -1,9 +1,15 @@
+import 'dart:isolate';
+
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:yet_another_weather_app/weather/presentation/weather_general.dart';
 
 import 'weather/presentation/weather_details.dart';
+
+import 'package:firebase_core/firebase_core.dart';
 
 final _router = GoRouter(
   routes: <RouteBase>[
@@ -22,7 +28,27 @@ final _router = GoRouter(
   ],
 );
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp();
+
+  // todo https://firebase.google.com/docs/crashlytics/customize-crash-reports?platform=flutter
+  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+  PlatformDispatcher.instance.onError = (error, stack) {
+    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+    return true;
+  };
+  Isolate.current.addErrorListener(RawReceivePort((pair) async {
+    final List<dynamic> errorAndStacktrace = pair;
+    await FirebaseCrashlytics.instance.recordError(
+      errorAndStacktrace.first,
+      errorAndStacktrace.last,
+      fatal: true,
+    );
+  }).sendPort);
+
+
   runApp(const ProviderScope(child: MainApp()));
 }
 
