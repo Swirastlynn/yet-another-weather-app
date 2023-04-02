@@ -98,6 +98,10 @@ class NetworkException implements Exception {
     return NetworkException._internal("Invalid format exception");
   }
 
+  factory NetworkException.invalidResponseType() {
+    return NetworkException._internal("Invalid response type");
+  }
+
   @override
   String toString() => message;
 }

@@ -26,8 +26,8 @@ class WeatherApiDataSource {
     required String appId,
     required String units,
   }) async {
-    Map<String, dynamic> json = await api
-        .getAPICall("$baseUrl/weather?appId=$appId&id=$cityId&units=$units");
+    Json json = await api.getJsonAPICall(
+        "$baseUrl/weather?appId=$appId&id=$cityId&units=$units");
     return CurrentWeatherModel.from(CurrentWeatherResponseDTO.fromJson(json));
   }
 }

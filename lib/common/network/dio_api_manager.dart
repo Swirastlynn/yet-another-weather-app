@@ -7,6 +7,8 @@ import 'package:yet_another_weather_app/common/tools/logger.dart';
 
 import 'network_exceptions_manager.dart';
 
+typedef Json = Map<String, dynamic>;
+
 const _defaultConnectTimeout = 5000;
 const _defaultReceiveTimeout = 3000;
 
@@ -35,13 +37,16 @@ class DioApiManager {
 
   DioApiManager(this.networkExceptionsManager, this.dio, this.logger);
 
-  // todo Either instead dynamic
-  Future<dynamic> getAPICall(String url) async {
-    logger.d("Calling API: $url");
+  Future<Json> getJsonAPICall(String url) async {
+    logger.d("Calling url: $url");
 
     try {
       Response response = await dio.get(url);
-      return response.data;
+      if (response.requestOptions.responseType == ResponseType.json) {
+        return response.data;
+      } else {
+        throw NetworkException.invalidResponseType();
+      }
     } on DioError catch (dioError) {
       var exception =
           networkExceptionsManager.transformToNetworkException(dioError);
