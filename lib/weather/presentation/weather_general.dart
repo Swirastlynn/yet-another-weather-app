@@ -18,18 +18,6 @@ class _WeatherGeneralState extends ConsumerState<WeatherGeneral> {
     AsyncValue<CurrentWeatherModel> state =
         ref.watch(currentWeatherControllerProvider);
 
-    // todo an article about how to have cookie and eat it - snackbar and beatiful handling of loading/data
-    // ref.listen<AsyncValue<CurrentWeatherModel>>(
-    //   currentWeatherControllerProvider,
-    //   (_, state) => state.whenOrNull(
-    //     error: (error, _) {
-    //       ScaffoldMessenger.of(context).showSnackBar(
-    //         SnackBar(content: Text(error.toString())),
-    //       );
-    //     },
-    //   ),
-    // );
-
     return Scaffold(
       body: SizedBox(
         width: double.infinity,
@@ -51,7 +39,9 @@ class _WeatherGeneralState extends ConsumerState<WeatherGeneral> {
               child: const Text('Weather Details'),
             ),
             TextButton(
-              onPressed: () => throw Exception(),
+              onPressed: () => ref
+                  .read(currentWeatherControllerProvider.notifier)
+                  .throwException(),
               child: const Text("Throw Test Exception"),
             ),
           ],
