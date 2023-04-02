@@ -10,51 +10,42 @@ class NetworkExceptionsManager {
   factory NetworkExceptionsManager() => NetworkExceptionsManager._internal();
 
   NetworkException transformToNetworkException(DioError dioError) {
-    NetworkException networkException;
     switch (dioError.type) {
       case DioErrorType.connectionTimeout:
-        networkException = ConnectionTimeoutException();
-        break;
+        return NetworkException.connectionTimeout();
       case DioErrorType.sendTimeout:
-        networkException = SendTimeoutException();
-        break;
+        return NetworkException.sendTimeout();
       case DioErrorType.receiveTimeout:
-        networkException = ReceiveTimeoutException();
-        break;
+        return NetworkException.receiveTimeout();
       case DioErrorType.badCertificate:
-        networkException = BadCertificateException();
-        break;
+        return NetworkException.badCertificate();
       case DioErrorType.badResponse:
         Response? errorResponse = dioError.response;
-        networkException = _handleError(
+        return _handleBadResponseError(
             dioError.response?.statusCode ?? -1,
             (errorResponse != null)
                 ? "${errorResponse.data}\n${errorResponse.headers}\n${errorResponse.requestOptions}"
                 : "${dioError.requestOptions}\n${dioError.message}");
-        break;
       case DioErrorType.cancel:
-        networkException = CancelRequestException();
-        break;
+        return NetworkException.cancelRequest();
       case DioErrorType.connectionError:
-        networkException = ConnectionErrorException();
-        break;
+        return NetworkException.connectionError();
       case DioErrorType.unknown:
         if (dioError.error is SocketException) {
-          networkException = const NoInternetConnectionException();
+          return NetworkException.socketException();
         } else if (dioError.error is FormatException) {
-          networkException = const InvalidFormatException();
+          return NetworkException.invalidFormatException();
         } else {
-          networkException = OtherNetworkException();
+          return NetworkException.otherNetworkIssue();
         }
-        break;
     }
-    return networkException;
   }
 
-  // you can add specific cases if this is required
-  NetworkException _handleError(int statusCode, String errorMessage) {
+  // You can add specific cases here
+  NetworkException _handleBadResponseError(
+      int statusCode, String errorMessage) {
     if (statusCode >= 400 && statusCode < 500) {
-      return ApiException(statusCode);
+      return ClientException(statusCode);
     } else if (statusCode >= 500) {
       return ServerException(statusCode);
     } else {
@@ -63,88 +54,61 @@ class NetworkExceptionsManager {
   }
 }
 
-abstract class NetworkException implements Exception {
+class NetworkException implements Exception {
   final String message;
 
-  const NetworkException(this.message);
+  NetworkException._internal(this.message);
+
+  // todo localization without context
+  factory NetworkException.connectionTimeout() {
+    return NetworkException._internal("Connection timeout");
+  }
+
+  factory NetworkException.sendTimeout() {
+    return NetworkException._internal("Send timeout");
+  }
+
+  factory NetworkException.receiveTimeout() {
+    return NetworkException._internal("Receive timeout");
+  }
+
+  factory NetworkException.badCertificate() {
+    return NetworkException._internal("Bad certificate");
+  }
+
+  factory NetworkException.cancelRequest() {
+    return NetworkException._internal("Cancel request");
+  }
+
+  factory NetworkException.connectionError() {
+    return NetworkException._internal("Connection error");
+  }
+
+  factory NetworkException.otherNetworkIssue() {
+    return NetworkException._internal("Other network issue");
+  }
+
+  factory NetworkException.socketException() {
+    return NetworkException._internal("Socket exception");
+  }
+
+  factory NetworkException.invalidFormatException() {
+    return NetworkException._internal("Invalid format exception");
+  }
 
   @override
   String toString() => message;
 }
 
-class ConnectionTimeoutException implements NetworkException {
-  ConnectionTimeoutException._internal();
-
-  factory ConnectionTimeoutException() =>
-      ConnectionTimeoutException._internal();
-
-  @override
-  String get message => "Connection timeout";
-}
-
-class SendTimeoutException implements NetworkException {
-  SendTimeoutException._internal();
-
-  factory SendTimeoutException() => SendTimeoutException._internal();
-
-  @override
-  String get message => "Send timeout";
-}
-
-class ReceiveTimeoutException implements NetworkException {
-  ReceiveTimeoutException._internal();
-
-  factory ReceiveTimeoutException() => ReceiveTimeoutException._internal();
-
-  @override
-  String get message => "Receive timeout";
-}
-
-class BadCertificateException implements NetworkException {
-  BadCertificateException._internal();
-
-  factory BadCertificateException() => BadCertificateException._internal();
-
-  @override
-  String get message => "Bad certificate";
-}
-
-class CancelRequestException implements NetworkException {
-  CancelRequestException._internal();
-
-  factory CancelRequestException() => CancelRequestException._internal();
-
-  @override
-  String get message => "Cancel request";
-}
-
-class ConnectionErrorException implements NetworkException {
-  ConnectionErrorException._internal();
-
-  factory ConnectionErrorException() => ConnectionErrorException._internal();
-
-  @override
-  String get message => "Connection Error";
-}
-
-class OtherNetworkException implements NetworkException {
-  OtherNetworkException._internal();
-
-  factory OtherNetworkException() => OtherNetworkException._internal();
-
-  @override
-  String get message => "Other network issue";
-}
-
-// inferred from status code exceptions START
-class ApiException implements NetworkException {
+// inferred from status code exceptions
+class ClientException implements NetworkException {
   final int statusCode;
 
-  const ApiException(this.statusCode);
+  const ClientException(this.statusCode);
 
   @override
   String get message =>
-      'Error occured while Communication from the App with StatusCode: $statusCode';
+      'An error occured during communication with the app with status code = $statusCode';
 }
 
 class ServerException implements NetworkException {
@@ -154,7 +118,7 @@ class ServerException implements NetworkException {
 
   @override
   String get message =>
-      'Error occured while Communication with Server with StatusCode: $statusCode';
+      'An error occured during communication with server with status code = $statusCode';
 }
 
 class NotAppSupportedStatusCodeException implements NetworkException {
@@ -166,19 +130,3 @@ class NotAppSupportedStatusCodeException implements NetworkException {
   String get message => 'Not supported status code $statusCode';
 }
 // inferred from status code exceptions END
-
-class NoInternetConnectionException implements NetworkException {
-  const NoInternetConnectionException();
-
-  @override
-  String get message => 'No Internet Connection';
-}
-
-class InvalidFormatException implements NetworkException {
-  const InvalidFormatException();
-
-  @override
-  String get message => 'Invalid format';
-  // todo All the above methods are the same except message.
-  // todo How about creating an object with messages and taking properly depending on the exception type?
-}
