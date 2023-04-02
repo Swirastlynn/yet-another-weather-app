@@ -1,8 +1,10 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-/// Network exception For DIO package
+final networkExceptionsManagerProvider =
+    Provider<NetworkExceptionsManager>((ref) => NetworkExceptionsManager());
 
 class NetworkExceptionsManager {
   NetworkExceptionsManager._internal();

@@ -1,5 +1,8 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
 
-var logger = Logger(
-  printer: PrettyPrinter(),
+final loggerProvider = Provider<Logger>(
+  (ref) => Logger(
+    printer: PrettyPrinter(),
+  ),
 );

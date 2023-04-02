@@ -6,7 +6,7 @@ import '../../env/env.dart';
 
 final currentWeatherControllerProvider = StateNotifierProvider<
         CurrentWeatherController, AsyncValue<CurrentWeatherModel>>(
-    (ref) => CurrentWeatherController(ref.watch(weatherDataSourceProvider)));
+    (ref) => CurrentWeatherController(ref.watch(weatherApiDataSourceProvider)));
 
 // todo Either?
 
