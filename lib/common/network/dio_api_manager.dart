@@ -14,9 +14,9 @@ const _defaultReceiveTimeout = 3000;
 
 final dioApiManagerProvider = Provider<DioApiManager>(
   (ref) => DioApiManager(
-    ref.read(networkExceptionsManagerProvider),
-    ref.read(dioProvider),
-    ref.read(loggerProvider),
+    ref.watch(networkExceptionsManagerProvider),
+    ref.watch(dioProvider),
+    ref.watch(loggerProvider),
   ),
 );
 
