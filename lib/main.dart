@@ -11,6 +11,8 @@ import 'weather/presentation/weather_details.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 final _router = GoRouter(
   routes: <RouteBase>[
     GoRoute(
@@ -48,7 +50,6 @@ void main() async {
     );
   }).sendPort);
 
-
   runApp(const ProviderScope(child: MainApp()));
 }
 
@@ -59,6 +60,8 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       routerConfig: _router,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
     );
   }
 }

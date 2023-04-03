@@ -1,0 +1,9 @@
+{
+    "@@locale": "en",
+    "appTitle": "Yen another weather app",
+    "okAction": "Ok",
+    "commonSuccessTitle": "Success",
+    "commonSuccessMessage": "Nice!",
+    "commonErrorTitle": "Error",
+    "commonErrorMessage": "Something went wrong, please try again"
+}
