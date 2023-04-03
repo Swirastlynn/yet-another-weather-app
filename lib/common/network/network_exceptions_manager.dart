@@ -14,13 +14,13 @@ class NetworkExceptionsManager {
   NetworkException transformToNetworkException(DioError dioError) {
     switch (dioError.type) {
       case DioErrorType.connectionTimeout:
-        return NetworkException.connectionTimeout();
+        return const NetworkException.connectionTimeout();
       case DioErrorType.sendTimeout:
-        return NetworkException.sendTimeout();
+        return const NetworkException.sendTimeout();
       case DioErrorType.receiveTimeout:
-        return NetworkException.receiveTimeout();
+        return const NetworkException.receiveTimeout();
       case DioErrorType.badCertificate:
-        return NetworkException.badCertificate();
+        return const NetworkException.badCertificate();
       case DioErrorType.badResponse:
         Response? errorResponse = dioError.response;
         return _handleBadResponseError(
@@ -29,16 +29,16 @@ class NetworkExceptionsManager {
                 ? "${errorResponse.data}\n${errorResponse.headers}\n${errorResponse.requestOptions}"
                 : "${dioError.requestOptions}\n${dioError.message}");
       case DioErrorType.cancel:
-        return NetworkException.cancelRequest();
+        return const NetworkException.cancelRequest();
       case DioErrorType.connectionError:
-        return NetworkException.connectionError();
+        return const NetworkException.connectionError();
       case DioErrorType.unknown:
         if (dioError.error is SocketException) {
-          return NetworkException.socketException();
+          return const NetworkException.socketException();
         } else if (dioError.error is FormatException) {
-          return NetworkException.invalidFormatException();
+          return const NetworkException.invalidFormatException();
         } else {
-          return NetworkException.otherNetworkIssue();
+          return const NetworkException.otherNetworkIssue();
         }
     }
   }
@@ -58,48 +58,18 @@ class NetworkExceptionsManager {
 class NetworkException implements Exception {
   final String message;
 
-  NetworkException._internal(this.message);
-
-  // todo localization without context
-  factory NetworkException.connectionTimeout() {
-    return NetworkException._internal("Connection timeout");
-  }
-
-  factory NetworkException.sendTimeout() {
-    return NetworkException._internal("Send timeout");
-  }
-
-  factory NetworkException.receiveTimeout() {
-    return NetworkException._internal("Receive timeout");
-  }
-
-  factory NetworkException.badCertificate() {
-    return NetworkException._internal("Bad certificate");
-  }
-
-  factory NetworkException.cancelRequest() {
-    return NetworkException._internal("Cancel request");
-  }
-
-  factory NetworkException.connectionError() {
-    return NetworkException._internal("Connection error");
-  }
-
-  factory NetworkException.otherNetworkIssue() {
-    return NetworkException._internal("Other network issue");
-  }
-
-  factory NetworkException.socketException() {
-    return NetworkException._internal("Socket exception");
-  }
-
-  factory NetworkException.invalidFormatException() {
-    return NetworkException._internal("Invalid format exception");
-  }
-
-  factory NetworkException.invalidResponseType() {
-    return NetworkException._internal("Invalid response type");
-  }
+  const NetworkException.connectionTimeout() : message = "Connection timeout";
+  const NetworkException.sendTimeout() : message = "Send timeout";
+  const NetworkException.receiveTimeout() : message = "Receive timeout";
+  const NetworkException.badCertificate() : message = "Bad certificate";
+  const NetworkException.cancelRequest() : message = "Cancel request";
+  const NetworkException.connectionError() : message = "Connection error";
+  const NetworkException.otherNetworkIssue() : message = "Other network issue";
+  const NetworkException.socketException() : message = "Socket exception";
+  const NetworkException.invalidFormatException()
+      : message = "Invalid format exception";
+  const NetworkException.invalidResponseType()
+      : message = "Invalid response type";
 
   @override
   String toString() => message;

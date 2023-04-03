@@ -5,11 +5,6 @@ class DisplayableFailure {
     required this.message,
   });
 
-  DisplayableFailure.commonError([String? message])
-      : title = "common Error", //appLocalizations.commonErrorTitle,
-        message = message ??
-            "common Error"; //appLocalizations.commonErrorMessage;
-
   final String title;
   final String message;
 }
