@@ -43,7 +43,6 @@ class NetworkExceptionsManager {
     }
   }
 
-  // You can add specific cases here
   NetworkException _handleBadResponseError(
       int statusCode, String errorMessage) {
     if (statusCode >= 400 && statusCode < 500) {
@@ -106,7 +105,7 @@ class NetworkException implements Exception {
   String toString() => message;
 }
 
-// inferred from status code exceptions
+// A set of exceptions inferred from the status codes.
 class ClientException implements NetworkException {
   final int statusCode;
 
@@ -135,4 +134,3 @@ class NotAppSupportedStatusCodeException implements NetworkException {
   @override
   String get message => 'Not supported status code $statusCode';
 }
-// inferred from status code exceptions END

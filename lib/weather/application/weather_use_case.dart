@@ -1,9 +1,9 @@
 import 'package:either_dart/either.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:yet_another_weather_app/weather/domain/current_weather_model.dart';
+import 'package:yet_another_weather_app/weather/domain/weather_failure.dart';
 
 import '../data/weather_api_data_source.dart';
-import 'weather_failure.dart';
 
 final weatherUseCaseProvider = Provider<WeatherUseCase>((ref) {
   return WeatherUseCase(ref.watch(weatherApiDataSourceProvider));
@@ -20,13 +20,17 @@ class WeatherUseCase {
     required String units,
   }) async {
     try {
-      return Right(await dataSource.getWeather(
-        cityId: cityId,
-        appId: appId,
-        units: units,
-      ));
-    } catch (error, stacktrace) {
-      return Left(WeatherFailure(error.toString(), stacktrace));
+      return Right(
+        await dataSource.getWeather(
+          cityId: cityId,
+          appId: appId,
+          units: units,
+        ),
+      );
+    } catch (_, stacktrace) {
+      return Left(
+        WeatherFailure.apiCallFailure(stacktrace),
+      );
     }
   }
 }

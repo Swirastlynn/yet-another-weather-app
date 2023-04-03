@@ -28,7 +28,7 @@ class CurrentWeatherController
         )
         .fold(
           (failure) =>
-              state = AsyncValue.error(failure.message, failure.stackTrace),
+              state = AsyncValue.error(failure.displayableFailure().message, failure.stackTrace),
           (success) => state = AsyncValue.data(success),
         );
   }
