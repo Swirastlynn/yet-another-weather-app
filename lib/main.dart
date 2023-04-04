@@ -4,31 +4,12 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
-import 'package:yet_another_weather_app/weather/presentation/weather_general.dart';
 
-import 'weather/presentation/weather_details.dart';
+import 'navigation/router.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-final _router = GoRouter(
-  routes: <RouteBase>[
-    GoRoute(
-      path: '/',
-      builder: (context, state) => const WeatherGeneral(),
-      routes: <RouteBase>[
-        GoRoute(
-          path: 'details',
-          builder: (BuildContext context, GoRouterState state) {
-            return const WeatherDetails();
-          },
-        ),
-      ],
-    ),
-  ],
-);
 
 void main() async {
   await setupFirebaseCrashlytics();
@@ -54,13 +35,13 @@ Future<void> setupFirebaseCrashlytics() async {
   }).sendPort);
 }
 
-class MainApp extends StatelessWidget {
+class MainApp extends ConsumerWidget {
   const MainApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp.router(
-      routerConfig: _router,
+      routerConfig: ref.watch(goRouterProvider),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
     );
