@@ -5,14 +5,14 @@ import 'package:yet_another_weather_app/weather/presentation/current_weather_con
 
 import '../domain/current_weather_model.dart';
 
-class WeatherGeneral extends ConsumerStatefulWidget {
-  const WeatherGeneral({super.key});
+class CurrentWeatherPage extends ConsumerStatefulWidget {
+  const CurrentWeatherPage({super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _WeatherGeneralState();
 }
 
-class _WeatherGeneralState extends ConsumerState<WeatherGeneral> {
+class _WeatherGeneralState extends ConsumerState<CurrentWeatherPage> {
   @override
   Widget build(BuildContext context) {
     AsyncValue<CurrentWeatherModel> state =
