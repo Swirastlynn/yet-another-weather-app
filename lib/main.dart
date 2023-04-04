@@ -31,11 +31,14 @@ final _router = GoRouter(
 );
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  await setupFirebaseCrashlytics();
+  runApp(const ProviderScope(child: MainApp()));
+}
 
+Future<void> setupFirebaseCrashlytics() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
-  // todo https://firebase.google.com/docs/crashlytics/customize-crash-reports?platform=flutter
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
   PlatformDispatcher.instance.onError = (error, stack) {
     FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
@@ -49,8 +52,6 @@ void main() async {
       fatal: true,
     );
   }).sendPort);
-
-  runApp(const ProviderScope(child: MainApp()));
 }
 
 class MainApp extends StatelessWidget {
