@@ -1,5 +1,6 @@
 import 'package:either_dart/either.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:yet_another_weather_app/common/network/network_exceptions_manager.dart';
 import 'package:yet_another_weather_app/common/tools/app_localizations_utils.dart';
 import 'package:yet_another_weather_app/weather/domain/current_weather_model.dart';
 import 'package:yet_another_weather_app/weather/domain/weather_failure.dart';
@@ -33,9 +34,16 @@ class WeatherUseCase {
           units: units,
         ),
       );
-    } catch (_, stackTrace) {
+    } on NetworkException catch (e, stackTrace) {
       return Left(
         WeatherFailure.apiCallFailure(
+          appLocalizations: appLocalizations,
+          stackTrace: stackTrace,
+        ),
+      );
+    } catch (e, stackTrace) {
+      return Left(
+        WeatherFailure.unknown(
           appLocalizations: appLocalizations,
           stackTrace: stackTrace,
         ),

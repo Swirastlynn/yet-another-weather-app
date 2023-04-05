@@ -6,6 +6,6 @@
     "commonSuccessMessage": "Nice!",
     "commonErrorTitle": "Error",
     "commonErrorMessage": "Something went wrong, please try again",
-    "networkErrorTitle": "Network Error",
-    "networkErrorMessage": "Something wrong when trying to connect to the server"
+    "apiCallErrorTitle": "Network Error",
+    "apiCallErrorMessage": "Something wrong when trying to connect to the server"
 }

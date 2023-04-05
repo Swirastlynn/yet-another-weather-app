@@ -13,7 +13,6 @@ class CurrentWeatherModel extends Equatable {
   });
 
   factory CurrentWeatherModel.empty() {
-    // todo add Result instead, make this model non-nullable then
     return const CurrentWeatherModel(
       timestamp: null,
       iconCode: null,

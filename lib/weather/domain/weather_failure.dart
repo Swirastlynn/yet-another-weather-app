@@ -43,8 +43,8 @@ class WeatherFailure implements HasDisplayableFailure {
         );
       case WeatherFailureType.apiCallFailure:
         return DisplayableFailure(
-          title: appLocalizations.networkErrorTitle,
-          message: appLocalizations.networkErrorMessage,
+          title: appLocalizations.apiCallErrorTitle,
+          message: appLocalizations.apiCallErrorMessage,
         );
     }
   }

@@ -45,10 +45,10 @@ class DioApiManager {
       if (response.requestOptions.responseType == ResponseType.json) {
         return response.data;
       } else {
-        throw NetworkException.invalidResponseType();
+        throw const NetworkException.invalidResponseType();
       }
     } on DioError catch (dioError) {
-      var exception =
+      NetworkException exception =
           networkExceptionsManager.transformToNetworkException(dioError);
       String errorMessage = exception.message;
       logger.e('Exception $errorMessage'); // todo leave?
