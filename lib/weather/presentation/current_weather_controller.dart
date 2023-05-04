@@ -5,7 +5,7 @@ import 'package:yet_another_weather_app/weather/domain/current_weather_model.dar
 
 import '../../env/env.dart';
 
-final currentWeatherControllerProvider = StateNotifierProvider<
+final currentWeatherControllerProvider = StateNotifierProvider.autoDispose<
         CurrentWeatherController, AsyncValue<CurrentWeatherModel>>(
     (ref) => CurrentWeatherController(ref.watch(weatherUseCaseProvider)));
 
@@ -27,8 +27,8 @@ class CurrentWeatherController
           units: "metric",
         )
         .fold(
-          (failure) =>
-              state = AsyncValue.error(failure.displayableFailure().message, failure.stackTrace),
+          (failure) => state = AsyncValue.error(
+              failure.displayableFailure().message, failure.stackTrace),
           (success) => state = AsyncValue.data(success),
         );
   }
