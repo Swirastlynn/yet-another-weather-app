@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:yet_another_weather_app/weather/presentation/current_weather_controller.dart';
 
 import '../domain/current_weather_model.dart';
+import '../providers.dart';
 
 class CurrentWeatherPage extends ConsumerStatefulWidget {
   const CurrentWeatherPage({super.key});

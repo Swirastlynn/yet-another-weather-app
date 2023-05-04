@@ -1,13 +1,9 @@
 import 'package:either_dart/either.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:yet_another_weather_app/weather/application/weather_use_case.dart';
-import 'package:yet_another_weather_app/weather/domain/current_weather_model.dart';
+import '../application/weather_use_case.dart';
+import '../domain/current_weather_model.dart';
 
 import '../../env/env.dart';
-
-final currentWeatherControllerProvider = StateNotifierProvider<
-        CurrentWeatherController, AsyncValue<CurrentWeatherModel>>(
-    (ref) => CurrentWeatherController(ref.watch(weatherUseCaseProvider)));
 
 class CurrentWeatherController
     extends StateNotifier<AsyncValue<CurrentWeatherModel>> {

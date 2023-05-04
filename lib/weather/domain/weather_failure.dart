@@ -1,5 +1,6 @@
-import '../../common/domain/displayable_failure.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../../common/domain/displayable_failure.dart';
 
 class WeatherFailure implements HasDisplayableFailure {
   final AppLocalizations appLocalizations;

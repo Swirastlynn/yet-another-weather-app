@@ -1,34 +1,11 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:logger/logger.dart';
-import 'package:yet_another_weather_app/common/tools/logger.dart';
 
 import 'network_exceptions_manager.dart';
 
 typedef Json = Map<String, dynamic>;
-
-const _defaultConnectTimeout = 5000;
-const _defaultReceiveTimeout = 3000;
-
-final dioApiManagerProvider = Provider<DioApiManager>(
-  (ref) => DioApiManager(
-    ref.watch(networkExceptionsManagerProvider),
-    ref.watch(dioProvider),
-    ref.watch(loggerProvider),
-  ),
-);
-
-final dioProvider = Provider<Dio>(
-  (ref) => Dio(
-    BaseOptions(
-      headers: {'Content-Type': 'application/json; charset=UTF-8'},
-      connectTimeout: const Duration(milliseconds: _defaultConnectTimeout),
-      receiveTimeout: const Duration(milliseconds: _defaultReceiveTimeout),
-    ),
-  ),
-);
 
 class DioApiManager {
   final NetworkExceptionsManager networkExceptionsManager;

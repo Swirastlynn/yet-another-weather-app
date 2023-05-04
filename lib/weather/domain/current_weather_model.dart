@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:yet_another_weather_app/weather/data/current_weather_response_dto.dart';
+import '../data/current_weather_response_dto.dart';
 
 class CurrentWeatherModel extends Equatable {
   const CurrentWeatherModel({
