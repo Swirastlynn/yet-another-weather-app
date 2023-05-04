@@ -8,7 +8,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../data/weather_api_data_source.dart';
 
-final weatherUseCaseProvider = Provider.autoDispose<WeatherUseCase>((ref) {
+final weatherUseCaseProvider = Provider<WeatherUseCase>((ref) {
   return WeatherUseCase(
     ref.watch(weatherApiDataSourceProvider),
     ref.watch(appLocalizationsProvider),

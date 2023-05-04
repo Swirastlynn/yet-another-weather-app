@@ -1,11 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../common/network/dio_api_manager.dart';
-import '../../common/network/providers.dart';
 import '../domain/current_weather_model.dart';
 import 'current_weather_response_dto.dart';
 
-final weatherApiDataSourceProvider = Provider.autoDispose<WeatherApiDataSource>((ref) {
+final weatherApiDataSourceProvider = Provider<WeatherApiDataSource>((ref) {
   return WeatherApiDataSource(
     api: ref.watch(dioApiManagerProvider),
     baseUrl: ref.read(baseUrlProvider),

@@ -14,6 +14,7 @@ dependencies:
   freezed: ^2.3.2
   go_router: ^6.4.1
   logger: ^1.3.0
+  flutter_riverpod: ^2.3.2
   equatable: ^2.0.5
   json_annotation: ^4.8.0
   firebase_crashlytics: ^3.1.0
@@ -21,8 +22,6 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl: ^0.17.0
-  flutter_riverpod: ^2.3.2
-  riverpod_annotation: ^2.0.2
 
 dev_dependencies:
   flutter_test:
@@ -31,7 +30,6 @@ dev_dependencies:
   envied_generator: ^0.3.0
   build_runner: ^2.3.3
   json_serializable: ^6.6.0
-  riverpod_generator: ^2.1.4
 
 flutter:
   uses-material-design: true
