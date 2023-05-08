@@ -14,17 +14,11 @@ class CurrentWeatherPage extends ConsumerStatefulWidget {
 
 class _WeatherGeneralState extends ConsumerState<CurrentWeatherPage> {
   @override
-  void initState() {
-    super.initState();
-    // WidgetsBinding.instance.addPostFrameCallback((_) =>
-    //     ref.read(currentWeatherControllerProvider.notifier).getWeather());
-  }
-
-  @override
   Widget build(BuildContext context) {
     AsyncValue<CurrentWeatherModel> state =
         ref.watch(currentWeatherControllerProvider);
 
+    // FIXME: UI layer. The task is to change this to a more appropriate widget.
     return Scaffold(
       body: SizedBox(
         width: double.infinity,
