@@ -50,6 +50,9 @@ class _WeatherGeneralState extends ConsumerState<CurrentWeatherPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
               children: [
+                const SizedBox(
+                  height: 60,
+                ),
                 state.when(
                   //data: (item) => Text(item.temperature?.toString() ?? "empty"),
                   data: (item) => Center(
@@ -105,7 +108,8 @@ class _WeatherGeneralState extends ConsumerState<CurrentWeatherPage> {
                                         decoration: BoxDecoration(
                                           color: const Color.fromARGB(
                                               255, 244, 184, 244),
-                                          borderRadius: BorderRadius.circular(15),
+                                          borderRadius:
+                                              BorderRadius.circular(15),
                                         ),
                                         child: Text(
                                           item.windSpeed?.toString() ?? "empty",
@@ -120,10 +124,12 @@ class _WeatherGeneralState extends ConsumerState<CurrentWeatherPage> {
                                         decoration: BoxDecoration(
                                           color: const Color.fromARGB(
                                               255, 88, 88, 229),
-                                          borderRadius: BorderRadius.circular(15),
+                                          borderRadius:
+                                              BorderRadius.circular(15),
                                         ),
                                         child: Text(
-                                          item.cloudiness?.toString() ?? "empty",
+                                          item.cloudiness?.toString() ??
+                                              "empty",
                                           style: const TextStyle(
                                               color: Colors.white),
                                         ),
@@ -178,12 +184,12 @@ class _WeatherGeneralState extends ConsumerState<CurrentWeatherPage> {
                   loading: () => const CircularProgressIndicator(),
                   error: (e, st) => Center(child: Text(e.toString())),
                 ),
-                TextButton(
-                  onPressed: () => ref
-                      .read(currentWeatherControllerProvider.notifier)
-                      .throwException(),
-                  child: const Text("Throw Test Exception"),
-                ),
+                // TextButton(
+                //   onPressed: () => ref
+                //       .read(currentWeatherControllerProvider.notifier)
+                //       .throwException(),
+                //   child: const Text("Throw Test Exception"),
+                // ),
                 const SizedBox(
                   height: 20,
                 )
