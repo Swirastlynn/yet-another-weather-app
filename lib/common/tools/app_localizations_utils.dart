@@ -8,7 +8,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 /// source: https://codewithandrea.com/articles/app-localizations-outside-widgets-riverpod/
 final appLocalizationsProvider = Provider<AppLocalizations>((ref) {
   // 1. initialize from the initial locale
-  ref.state = lookupAppLocalizations(ui.window.locale);
+  ref.state = lookupAppLocalizations(ui.window
+      .locale); // TODO test for polish language on iPhone emulator, there's a bug
   // 2. create an observer to update the state
   final observer = _LocaleObserver((locales) {
     ref.state = lookupAppLocalizations(ui.window.locale);

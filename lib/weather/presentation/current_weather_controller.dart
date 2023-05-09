@@ -24,14 +24,8 @@ class CurrentWeatherController extends AsyncNotifier<CurrentWeatherModel> {
         );
   }
 
-  void throwException() {
-    // todo to remove
-    state = AsyncValue.error("error error", StackTrace.current);
-  }
-
   @override
   FutureOr<CurrentWeatherModel> build() {
-    getWeather();
     return CurrentWeatherModel.empty();
   }
 }

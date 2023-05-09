@@ -14,6 +14,13 @@ class CurrentWeatherPage extends ConsumerStatefulWidget {
 
 class _WeatherGeneralState extends ConsumerState<CurrentWeatherPage> {
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) =>
+        ref.read(currentWeatherControllerProvider.notifier).getWeather());
+  }
+
+  @override
   Widget build(BuildContext context) {
     AsyncValue<CurrentWeatherModel> state =
         ref.watch(currentWeatherControllerProvider);
@@ -38,12 +45,6 @@ class _WeatherGeneralState extends ConsumerState<CurrentWeatherPage> {
                 context.go('/details');
               },
               child: const Text('Weather Details'),
-            ),
-            TextButton(
-              onPressed: () => ref
-                  .read(currentWeatherControllerProvider.notifier)
-                  .throwException(),
-              child: const Text("Throw Test Exception"),
             ),
           ],
         ),

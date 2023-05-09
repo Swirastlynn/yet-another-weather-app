@@ -1,10 +1,11 @@
 import 'package:either_dart/either.dart';
+
 import '../../common/network/network_exceptions_manager.dart';
 import '../domain/current_weather_model.dart';
-import '../domain/weather_failure.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../data/weather_api_data_source.dart';
+import '../domain/weather_failure.dart';
 
 class WeatherUseCase {
   final WeatherApiDataSource dataSource;
