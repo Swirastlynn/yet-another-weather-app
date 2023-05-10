@@ -22,7 +22,8 @@ class _WeatherGeneralState extends ConsumerState<CurrentWeatherPage> {
   Widget build(BuildContext context) {
     AsyncValue<CurrentWeatherModel> state =
         ref.watch(currentWeatherControllerProvider);
-    String formattedDateTime = DateTimeHelper.getFormattedDateTime();
+    DateTimeHelper dateTimeHelper = DateTimeHelper();
+    String formattedDateTime = dateTimeHelper.getFormattedDateTime();
 
     // FIXME: UI layer. The task is to change this to a more appropriate widget.
     return Scaffold(

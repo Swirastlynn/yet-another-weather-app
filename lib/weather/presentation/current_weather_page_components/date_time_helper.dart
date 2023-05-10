@@ -1,14 +1,14 @@
 import 'package:intl/intl.dart';
 
 class DateTimeHelper {
-  static String getFormattedDateTime() {
+  String getFormattedDateTime() {
     final dateTime = DateTime.now();
     final dayOfWeek = _getDayOfWeekString(dateTime.weekday);
     final time = DateFormat.jm().format(dateTime);
     return '$dayOfWeek, $time';
   }
 
-  static String _getDayOfWeekString(int dayOfWeek) {
+  String _getDayOfWeekString(int dayOfWeek) {
     switch (dayOfWeek) {
       case DateTime.monday:
         return 'Monday';
