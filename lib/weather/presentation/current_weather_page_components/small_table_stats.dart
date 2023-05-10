@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:yet_another_weather_app/weather/domain/current_weather_model.dart';
 
 class SmallTableStats extends StatelessWidget {
-  CurrentWeatherModel item;
-  SmallTableStats({
+  final int? pressure;
+  final int? humidity;
+  final double? windSpeed;
+  const SmallTableStats({
     Key? key,
-    required this.item,
+    required this.pressure,
+    required this.humidity,
+    required this.windSpeed,
   }) : super(key: key);
 
   @override
@@ -30,7 +33,7 @@ class SmallTableStats extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: const [
             Text(
-              ' Precipitation ',
+              ' Pressure ',
               style: TextStyle(color: Colors.white, fontSize: 17),
             ),
             SizedBox(
@@ -53,45 +56,45 @@ class SmallTableStats extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Text(
-              item.humidity?.toString() ?? "empty",
+              pressure?.toString() ?? "empty",
               style: const TextStyle(fontSize: 20, color: Colors.white),
             ),
             const SizedBox(
               height: 5,
             ),
             Text(
-              item.humidity?.toString() ?? "empty",
+              humidity?.toString() ?? "empty",
               style: const TextStyle(fontSize: 20, color: Colors.white),
             ),
             const SizedBox(
               height: 5,
             ),
             Text(
-              item.windSpeed?.toString() ?? "empty",
+              windSpeed?.toString() ?? "empty",
               style: const TextStyle(fontSize: 20, color: Colors.white),
             ),
           ],
         ),
         Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: const [
             Text(
               '  %',
-              style: TextStyle(color: Colors.white, fontSize: 22),
+              style: TextStyle(color: Colors.white, fontSize: 18),
             ),
             SizedBox(
               height: 5,
             ),
             Text(
               '  %',
-              style: TextStyle(color: Colors.white, fontSize: 22),
+              style: TextStyle(color: Colors.white, fontSize: 18),
             ),
             SizedBox(
               height: 5,
             ),
             Text(
-              '  %',
-              style: TextStyle(color: Colors.white, fontSize: 22),
+              ' m/s',
+              style: TextStyle(color: Colors.white, fontSize: 18),
             ),
           ],
         ),
