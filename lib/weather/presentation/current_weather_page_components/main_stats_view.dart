@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:yet_another_weather_app/weather/presentation/current_weather_page_components/cloud_calculator.dart';
 import 'package:yet_another_weather_app/weather/presentation/current_weather_page_components/date_time_helper.dart';
+import 'package:yet_another_weather_app/weather/presentation/current_weather_page_components/wind_calculator.dart';
 
 class MainStatsView extends StatelessWidget {
   final double? temperature;
   final double? windSpeed;
   final int? cloudiness;
   final DateTimeHelper dateTimeHelper = DateTimeHelper();
+  final WindCalculator windCalculator = WindCalculator();
+  final CloudCalculator cloudCalculator = CloudCalculator();
 
   MainStatsView({
     Key? key,
@@ -39,38 +43,45 @@ class MainStatsView extends StatelessWidget {
           Row(
             children: [
               const SizedBox(
-                width: 30,
+                width: 20,
               ),
               Text(
-                temperature.toString(),
+                temperature?.toStringAsFixed(0) ?? 'empty',
                 style: const TextStyle(fontSize: 50),
               ),
+              const Text(
+                '\u00B0C',
+                style: TextStyle(fontSize: 43),
+              ),
               const SizedBox(
-                width: 60,
+                width: 20,
               ),
               Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Container(
+                    padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
                       color: const Color.fromARGB(255, 244, 184, 244),
                       borderRadius: BorderRadius.circular(15),
                     ),
                     child: Text(
-                      windSpeed?.toString() ?? "empty",
-                      style: const TextStyle(color: Colors.white),
+                      windCalculator.windRating(windSpeed ?? -1),
+                      style: const TextStyle(color: Colors.white, fontSize: 10),
                     ),
                   ),
                   const SizedBox(
                     height: 5,
                   ),
                   Container(
+                    padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
                       color: const Color.fromARGB(255, 88, 88, 229),
                       borderRadius: BorderRadius.circular(15),
                     ),
                     child: Text(
-                      cloudiness?.toString() ?? "empty",
-                      style: const TextStyle(color: Colors.white),
+                      cloudCalculator.cloudRating(cloudiness ?? -1),
+                      style: const TextStyle(color: Colors.white, fontSize: 10),
                     ),
                   ),
                 ],
