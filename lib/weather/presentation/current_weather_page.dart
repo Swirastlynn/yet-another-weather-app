@@ -66,20 +66,23 @@ class _WeatherGeneralState extends ConsumerState<CurrentWeatherPage> {
                                   'lib/assets/images/Rectangle217.png'),
                               fit: BoxFit.cover),
                         ),
-                        height: 600,
-                        width: 300,
-                      ),
-                      MainStatsView(
-                        temperature: item.temperature,
-                        cloudiness: item.cloudiness,
-                        windSpeed: item.windSpeed,
+                        height: MediaQuery.of(context).size.height,
+                        width: MediaQuery.of(context).size.width,
                       ),
                       Positioned(
-                          top: -50,
+                        bottom: MediaQuery.of(context).size.height * 0.45,
+                        child: MainStatsView(
+                          temperature: item.temperature,
+                          cloudiness: item.cloudiness,
+                          windSpeed: item.windSpeed,
+                        ),
+                      ),
+                      Positioned(
+                          bottom: MediaQuery.of(context).size.height * 0.66,
                           child: Image.asset(
                               'lib/assets/images/MoonCloudFastWind.png')),
                       Positioned(
-                        bottom: 145,
+                        bottom: MediaQuery.of(context).size.height * 0.42,
                         child: Container(
                           height: 50,
                           width: 130,
@@ -102,7 +105,7 @@ class _WeatherGeneralState extends ConsumerState<CurrentWeatherPage> {
                         height: 10,
                       ),
                       Positioned(
-                        bottom: 10,
+                        bottom: MediaQuery.of(context).size.height * 0.27,
                         child: SmallTableStats(
                           pressure: item.pressure,
                           humidity: item.humidity,
