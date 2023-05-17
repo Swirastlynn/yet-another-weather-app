@@ -1,4 +1,4 @@
-class CloudCalculator {
+
   String cloudRating(int cloudiness) {
     if (cloudiness >= 0 && cloudiness <= 10) {
       return 'Clear sky';
@@ -14,4 +14,4 @@ class CloudCalculator {
       return 'Incorrect data';
     }
   }
-}
+

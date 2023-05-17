@@ -1,4 +1,4 @@
-class WindCalculator {
+
 
   String windRating(double windSpeed) {
     if (windSpeed >= 0 && windSpeed <= 5) {
@@ -13,4 +13,4 @@ class WindCalculator {
       return 'Incorrect data';
     }
   }
-}
+

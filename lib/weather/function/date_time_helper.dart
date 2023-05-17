@@ -1,6 +1,6 @@
 import 'package:intl/intl.dart';
 
-class DateTimeHelper {
+
   String getFormattedDateTime() {
     final dateTime = DateTime.now();
     final dayOfWeek = _getDayOfWeekString(dateTime.weekday);
@@ -28,4 +28,4 @@ class DateTimeHelper {
         return '';
     }
   }
-}
+

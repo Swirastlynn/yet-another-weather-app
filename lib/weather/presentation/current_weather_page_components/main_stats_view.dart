@@ -1,26 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:yet_another_weather_app/weather/presentation/current_weather_page_components/cloud_calculator.dart';
-import 'package:yet_another_weather_app/weather/presentation/current_weather_page_components/date_time_helper.dart';
-import 'package:yet_another_weather_app/weather/presentation/current_weather_page_components/wind_calculator.dart';
+import 'package:yet_another_weather_app/weather/function/cloud_calculator.dart';
+import 'package:yet_another_weather_app/weather/function/date_time_helper.dart';
+import 'package:yet_another_weather_app/weather/function/wind_calculator.dart';
 
 class MainStatsView extends StatelessWidget {
   final double? temperature;
   final double? windSpeed;
   final int? cloudiness;
-  final DateTimeHelper dateTimeHelper = DateTimeHelper();
-  final WindCalculator windCalculator = WindCalculator();
-  final CloudCalculator cloudCalculator = CloudCalculator();
+  //final DateTimeHelper dateTimeHelper;
+  //final WindCalculator windCalculator;
+  //final CloudCalculator cloudCalculator;
 
-  MainStatsView({
+  const MainStatsView({
     Key? key,
     required this.temperature,
     required this.windSpeed,
     required this.cloudiness,
+    //required this.dateTimeHelper,
+    //required this.windCalculator,
+    //required this.cloudCalculator,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final String formattedDateTime = dateTimeHelper.getFormattedDateTime();
+    final String formattedDateTime = getFormattedDateTime();
     return Container(
       height: 260,
       width: 260,
@@ -66,7 +69,7 @@ class MainStatsView extends StatelessWidget {
                       borderRadius: BorderRadius.circular(15),
                     ),
                     child: Text(
-                      windCalculator.windRating(windSpeed ?? -1),
+                      windRating(windSpeed ?? -1),
                       style: const TextStyle(color: Colors.white, fontSize: 10),
                     ),
                   ),
@@ -80,7 +83,7 @@ class MainStatsView extends StatelessWidget {
                       borderRadius: BorderRadius.circular(15),
                     ),
                     child: Text(
-                      cloudCalculator.cloudRating(cloudiness ?? -1),
+                      cloudRating(cloudiness ?? -1),
                       style: const TextStyle(color: Colors.white, fontSize: 10),
                     ),
                   ),

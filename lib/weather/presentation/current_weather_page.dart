@@ -47,7 +47,7 @@ class _WeatherGeneralState extends ConsumerState<CurrentWeatherPage> {
         height: double.infinity,
         child: SingleChildScrollView(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.max,
             children: [
@@ -59,15 +59,9 @@ class _WeatherGeneralState extends ConsumerState<CurrentWeatherPage> {
                   child: Stack(
                     alignment: AlignmentDirectional.center,
                     children: [
-                      Container(
-                        decoration: const BoxDecoration(
-                          image: DecorationImage(
-                              image: AssetImage(
-                                  'lib/assets/images/Rectangle217.png'),
-                              fit: BoxFit.cover),
-                        ),
-                        height: MediaQuery.of(context).size.height,
-                        width: MediaQuery.of(context).size.width,
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.99,
+                        width: MediaQuery.of(context).size.width * 0.99,
                       ),
                       Positioned(
                         bottom: MediaQuery.of(context).size.height * 0.45,
@@ -78,9 +72,11 @@ class _WeatherGeneralState extends ConsumerState<CurrentWeatherPage> {
                         ),
                       ),
                       Positioned(
-                          bottom: MediaQuery.of(context).size.height * 0.66,
-                          child: Image.asset(
-                              'lib/assets/images/MoonCloudFastWind.png')),
+                        bottom: MediaQuery.of(context).size.height * 0.66,
+                        child: Image.asset(
+                          'lib/assets/images/MoonCloudFastWind.png',
+                        ),
+                      ),
                       Positioned(
                         bottom: MediaQuery.of(context).size.height * 0.42,
                         child: Container(
@@ -123,7 +119,7 @@ class _WeatherGeneralState extends ConsumerState<CurrentWeatherPage> {
                 ),
               ),
               const SizedBox(
-                height: 20,
+                height: 10,
               ),
             ],
           ),
