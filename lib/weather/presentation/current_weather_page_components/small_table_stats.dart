@@ -56,21 +56,21 @@ class SmallTableStats extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Text(
-              pressure.toString() ?? "empty", // todo TO CONTROLLER
+              pressure,
               style: const TextStyle(fontSize: 20, color: Colors.white),
             ),
             const SizedBox(
               height: 5,
             ),
             Text(
-              humidity.toString() ?? "empty",
+              humidity,
               style: const TextStyle(fontSize: 20, color: Colors.white),
             ),
             const SizedBox(
               height: 5,
             ),
             Text(
-              windSpeed.toString() ?? "empty",
+              windSpeed,
               style: const TextStyle(fontSize: 20, color: Colors.white),
             ),
           ],

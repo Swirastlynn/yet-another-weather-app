@@ -6,9 +6,9 @@ import 'package:go_router/go_router.dart';
 import 'package:yet_another_weather_app/weather/presentation/current_weather_page_components/current_weather_nav_bar.dart';
 import 'package:yet_another_weather_app/weather/presentation/current_weather_page_components/main_stats_view.dart';
 import 'package:yet_another_weather_app/weather/presentation/current_weather_page_components/small_table_stats.dart';
+import 'package:yet_another_weather_app/weather/presentation/presentation_model/current_weather_presentation_model.dart';
 
 import '../providers.dart';
-import 'current_weather_controller.dart';
 
 class CurrentWeatherPage extends ConsumerStatefulWidget {
   const CurrentWeatherPage({super.key});
@@ -22,8 +22,6 @@ class _WeatherGeneralState extends ConsumerState<CurrentWeatherPage> {
   Widget build(BuildContext context) {
     AsyncValue<CurrentWeatherPresentationModel> state =
         ref.watch(currentWeatherControllerProvider);
-
-    // FIXME: UI layer. The task is to change this to a more appropriate widget.
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -67,8 +65,9 @@ class _WeatherGeneralState extends ConsumerState<CurrentWeatherPage> {
                         bottom: MediaQuery.of(context).size.height * 0.45,
                         child: MainStatsView(
                           temperature: item.temperature,
-                          cloudiness: item.cloudiness,
-                          windSpeed: item.windSpeed,
+                          cloudiness: item.cloudinessDescribe,
+                          windSpeed: item.windSpeedDescribe,
+                          formattedDateTime: item.formattedDateTime,
                         ),
                       ),
                       Positioned(

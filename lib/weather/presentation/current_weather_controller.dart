@@ -1,8 +1,9 @@
 import 'dart:async';
 
 import 'package:either_dart/either.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:yet_another_weather_app/weather/function/cloud_calculator.dart';
+import 'package:yet_another_weather_app/weather/presentation/presentation_model/current_weather_presentation_model.dart';
 
 import '../../env/env.dart';
 import '../function/date_time_helper.dart';
@@ -25,13 +26,15 @@ class CurrentWeatherController
           failure.displayableFailure().message, failure.stackTrace),
       (success) {
         final presentationModel = CurrentWeatherPresentationModel(
-          getFormattedDateTime(),
-          success.iconCode,
-          ...,
-          success.pressure,
-          success.humidity,
-          windRating(success.windSpeed),
-          success.cloudiness,
+          DateTime.now().getFormattedDateTime(),
+          success.iconCode ?? '',
+          success.temperature.toString().split('.').first,
+          success.pressure.toString(),
+          success.humidity.toString(),
+          success.windSpeed.toString(),
+          windRating(success.windSpeed ?? -1),
+          success.cloudiness.toString(),
+          cloudRating(success.cloudiness ?? -1),
         );
         return state = AsyncValue.data(presentationModel);
       },
@@ -48,46 +51,4 @@ class CurrentWeatherController
     getWeather();
     return CurrentWeatherPresentationModel.empty();
   }
-}
-
-// to separate file
-class CurrentWeatherPresentationModel extends Equatable {
-  final String formattedDateTime;
-  final String iconCode;
-  final String temperature;
-  final String pressure;
-  final String humidity;
-  final String windSpeed;
-  final String cloudiness;
-
-  const CurrentWeatherPresentationModel(
-      this.formattedDateTime,
-      this.iconCode,
-      this.temperature,
-      this.pressure,
-      this.humidity,
-      this.windSpeed,
-      this.cloudiness);
-
-  factory CurrentWeatherPresentationModel.empty() =>
-      const CurrentWeatherPresentationModel(
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-      );
-
-  @override
-  List<Object?> get props => [
-        formattedDateTime,
-        iconCode,
-        temperature,
-        pressure,
-        humidity,
-        windSpeed,
-        cloudiness
-      ];
 }
