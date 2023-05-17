@@ -7,8 +7,8 @@ import 'package:yet_another_weather_app/weather/presentation/current_weather_pag
 import 'package:yet_another_weather_app/weather/presentation/current_weather_page_components/main_stats_view.dart';
 import 'package:yet_another_weather_app/weather/presentation/current_weather_page_components/small_table_stats.dart';
 
-import '../domain/current_weather_model.dart';
 import '../providers.dart';
+import 'current_weather_controller.dart';
 
 class CurrentWeatherPage extends ConsumerStatefulWidget {
   const CurrentWeatherPage({super.key});
@@ -20,7 +20,7 @@ class CurrentWeatherPage extends ConsumerStatefulWidget {
 class _WeatherGeneralState extends ConsumerState<CurrentWeatherPage> {
   @override
   Widget build(BuildContext context) {
-    AsyncValue<CurrentWeatherModel> state =
+    AsyncValue<CurrentWeatherPresentationModel> state =
         ref.watch(currentWeatherControllerProvider);
 
     // FIXME: UI layer. The task is to change this to a more appropriate widget.

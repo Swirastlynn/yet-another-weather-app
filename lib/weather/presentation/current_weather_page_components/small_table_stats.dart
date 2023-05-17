@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class SmallTableStats extends StatelessWidget {
-  final int? pressure;
-  final int? humidity;
-  final double? windSpeed;
+  final String pressure;
+  final String humidity;
+  final String windSpeed;
   const SmallTableStats({
     Key? key,
     required this.pressure,
@@ -56,21 +56,21 @@ class SmallTableStats extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Text(
-              pressure?.toString() ?? "empty",
+              pressure.toString() ?? "empty", // todo TO CONTROLLER
               style: const TextStyle(fontSize: 20, color: Colors.white),
             ),
             const SizedBox(
               height: 5,
             ),
             Text(
-              humidity?.toString() ?? "empty",
+              humidity.toString() ?? "empty",
               style: const TextStyle(fontSize: 20, color: Colors.white),
             ),
             const SizedBox(
               height: 5,
             ),
             Text(
-              windSpeed?.toString() ?? "empty",
+              windSpeed.toString() ?? "empty",
               style: const TextStyle(fontSize: 20, color: Colors.white),
             ),
           ],

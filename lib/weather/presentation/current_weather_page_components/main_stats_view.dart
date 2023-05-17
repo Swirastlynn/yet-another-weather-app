@@ -1,24 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:yet_another_weather_app/weather/function/cloud_calculator.dart';
 import 'package:yet_another_weather_app/weather/function/date_time_helper.dart';
-import 'package:yet_another_weather_app/weather/function/wind_calculator.dart';
 
 class MainStatsView extends StatelessWidget {
-  final double? temperature;
-  final double? windSpeed;
-  final int? cloudiness;
-  //final DateTimeHelper dateTimeHelper;
-  //final WindCalculator windCalculator;
-  //final CloudCalculator cloudCalculator;
+  final String temperature;
+  final String windSpeed;
+  final String cloudiness;
 
   const MainStatsView({
     Key? key,
     required this.temperature,
     required this.windSpeed,
     required this.cloudiness,
-    //required this.dateTimeHelper,
-    //required this.windCalculator,
-    //required this.cloudCalculator,
   }) : super(key: key);
 
   @override
@@ -49,7 +41,7 @@ class MainStatsView extends StatelessWidget {
                 width: 20,
               ),
               Text(
-                temperature?.toStringAsFixed(0) ?? 'empty',
+                temperature,
                 style: const TextStyle(fontSize: 50),
               ),
               const Text(
@@ -69,7 +61,7 @@ class MainStatsView extends StatelessWidget {
                       borderRadius: BorderRadius.circular(15),
                     ),
                     child: Text(
-                      windRating(windSpeed ?? -1),
+                      windSpeed,
                       style: const TextStyle(color: Colors.white, fontSize: 10),
                     ),
                   ),
@@ -83,7 +75,7 @@ class MainStatsView extends StatelessWidget {
                       borderRadius: BorderRadius.circular(15),
                     ),
                     child: Text(
-                      cloudRating(cloudiness ?? -1),
+                      cloudiness,
                       style: const TextStyle(color: Colors.white, fontSize: 10),
                     ),
                   ),

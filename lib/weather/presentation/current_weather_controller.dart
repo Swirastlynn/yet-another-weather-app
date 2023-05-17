@@ -1,27 +1,41 @@
 import 'dart:async';
 
 import 'package:either_dart/either.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:yet_another_weather_app/weather/domain/current_weather_model.dart';
 
 import '../../env/env.dart';
+import '../function/date_time_helper.dart';
+import '../function/wind_calculator.dart';
 import '../providers.dart';
 
-class CurrentWeatherController extends AsyncNotifier<CurrentWeatherModel> {
+class CurrentWeatherController
+    extends AsyncNotifier<CurrentWeatherPresentationModel> {
   Future<void> getWeather() async {
     final weatherUseCase = ref.read(weatherUseCaseProvider);
     state = const AsyncValue.loading();
     await weatherUseCase
         .getWeather(
-          cityId: "2643743",
-          appId: Env.openWeatherApiKey,
-          units: "metric",
-        )
+      cityId: "2643743",
+      appId: Env.openWeatherApiKey,
+      units: "metric",
+    )
         .fold(
-          (failure) => state = AsyncValue.error(
-              failure.displayableFailure().message, failure.stackTrace),
-          (success) => state = AsyncValue.data(success),
+      (failure) => state = AsyncValue.error(
+          failure.displayableFailure().message, failure.stackTrace),
+      (success) {
+        final presentationModel = CurrentWeatherPresentationModel(
+          getFormattedDateTime(),
+          success.iconCode,
+          ...,
+          success.pressure,
+          success.humidity,
+          windRating(success.windSpeed),
+          success.cloudiness,
         );
+        return state = AsyncValue.data(presentationModel);
+      },
+    );
   }
 
   void throwException() {
@@ -30,8 +44,50 @@ class CurrentWeatherController extends AsyncNotifier<CurrentWeatherModel> {
   }
 
   @override
-  FutureOr<CurrentWeatherModel> build() {
+  FutureOr<CurrentWeatherPresentationModel> build() {
     getWeather();
-    return CurrentWeatherModel.empty();
+    return CurrentWeatherPresentationModel.empty();
   }
+}
+
+// to separate file
+class CurrentWeatherPresentationModel extends Equatable {
+  final String formattedDateTime;
+  final String iconCode;
+  final String temperature;
+  final String pressure;
+  final String humidity;
+  final String windSpeed;
+  final String cloudiness;
+
+  const CurrentWeatherPresentationModel(
+      this.formattedDateTime,
+      this.iconCode,
+      this.temperature,
+      this.pressure,
+      this.humidity,
+      this.windSpeed,
+      this.cloudiness);
+
+  factory CurrentWeatherPresentationModel.empty() =>
+      const CurrentWeatherPresentationModel(
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+      );
+
+  @override
+  List<Object?> get props => [
+        formattedDateTime,
+        iconCode,
+        temperature,
+        pressure,
+        humidity,
+        windSpeed,
+        cloudiness
+      ];
 }

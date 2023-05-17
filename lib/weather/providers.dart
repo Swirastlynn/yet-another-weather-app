@@ -3,11 +3,10 @@ import '../common/providers.dart';
 import '../common/tools/app_localizations_utils.dart';
 import 'application/weather_use_case.dart';
 import 'data/weather_api_data_source.dart';
-import 'domain/current_weather_model.dart';
 import 'presentation/current_weather_controller.dart';
 
-final currentWeatherControllerProvider =
-    AsyncNotifierProvider<CurrentWeatherController, CurrentWeatherModel>(
+final currentWeatherControllerProvider = AsyncNotifierProvider<
+    CurrentWeatherController, CurrentWeatherPresentationModel>(
   CurrentWeatherController.new,
 );
 
