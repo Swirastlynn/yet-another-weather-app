@@ -13,9 +13,10 @@ class WeatherFailure implements HasDisplayableFailure {
     required this.type,
   });
 
-  factory WeatherFailure.unknown(
-      {required AppLocalizations appLocalizations,
-      required StackTrace stackTrace}) {
+  factory WeatherFailure.unknown({
+    required AppLocalizations appLocalizations,
+    required StackTrace stackTrace,
+  }) {
     return WeatherFailure._(
       stackTrace: stackTrace,
       type: WeatherFailureType.unknown,

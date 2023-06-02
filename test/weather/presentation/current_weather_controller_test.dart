@@ -6,11 +6,10 @@ import 'package:yet_another_weather_app/weather/application/weather_use_case.dar
 import 'package:yet_another_weather_app/weather/domain/current_weather_model.dart';
 import 'package:yet_another_weather_app/weather/domain/weather_failure.dart';
 import 'package:yet_another_weather_app/weather/providers.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../../common/fake_app_localizations.dart';
 
 class MockWeatherUseCase extends Mock implements WeatherUseCase {}
-
-class MockAppLocalizations extends Mock implements AppLocalizations {}
 
 class MockStackTrace extends Mock implements StackTrace {}
 
@@ -104,20 +103,18 @@ void main() {
 
     test('controller failure test', () async {
       final weatherUseCase = MockWeatherUseCase();
-      final appLocalizations = MockAppLocalizations();
       when(() => weatherUseCase.getWeather(
             cityId: any(named: 'cityId'),
             appId: any(named: 'appId'),
             units: any(named: 'units'),
           )).thenAnswer(
-        (_) => failureFuture(WeatherFailure.unknown(
-            appLocalizations: appLocalizations, stackTrace: MockStackTrace())),
+        (_) => failureFuture(
+          WeatherFailure.unknown(
+            appLocalizations: FakeAppLocalizations(),
+            stackTrace: MockStackTrace(),
+          ),
+        ),
       );
-      // TODO FakeAppLocalizations would be more appropriate - less code
-      when(() => appLocalizations.commonErrorTitle)
-          .thenAnswer((_) => "common error title");
-      when(() => appLocalizations.commonErrorMessage)
-          .thenAnswer((_) => "common error mesg");
 
       final container = makeProviderContainer(weatherUseCase);
       final listener = Listener<AsyncValue<CurrentWeatherModel>>();
