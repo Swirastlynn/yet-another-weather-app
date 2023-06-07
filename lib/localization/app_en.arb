@@ -7,5 +7,7 @@
     "commonErrorTitle": "Error",
     "commonErrorMessage": "Something went wrong, please try again",
     "apiCallErrorTitle": "Network Error",
-    "apiCallErrorMessage": "Something wrong when trying to connect to the server"
+    "apiCallErrorMessage": "Something wrong when trying to connect to the server",
+    "notFoundCode": "404 Not Found",
+    "notFoundDescription": "Oops! Page not found."
 }

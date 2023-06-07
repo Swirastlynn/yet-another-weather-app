@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class CurrentWeatherNavBar extends StatefulWidget {
+class CurrentWeatherNavBar extends ConsumerStatefulWidget {
   const CurrentWeatherNavBar({super.key});
 
   @override
-  State<CurrentWeatherNavBar> createState() => _CurrentWeatherNavBarState();
+  ConsumerState<CurrentWeatherNavBar> createState() => _CurrentWeatherNavBarState();
 }
 
-class _CurrentWeatherNavBarState extends State<CurrentWeatherNavBar> {
+class _CurrentWeatherNavBarState extends ConsumerState<CurrentWeatherNavBar> {
   int currentIndex = 0;
 
   @override

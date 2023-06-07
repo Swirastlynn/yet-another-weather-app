@@ -1,11 +1,13 @@
 {
 	"@@locale": "pl",
 	"appTitle": "Po prostu kolejna apka pogodowa",
-    "okAction": "Ok",
-    "commonSuccessTitle": "Sukces",
-    "commonSuccessMessage": "Nieźle!",
-    "commonErrorTitle": "Błąd",
-    "commonErrorMessage": "Coś poszło nie tak, spróbuj proszę ponownie",
-    "apiCallErrorTitle": "Błąd sieci",
-    "apiCallErrorMessage": "Coś poszło nie tak podczas połączenia z serwerem"
+	"okAction": "Ok",
+	"commonSuccessTitle": "Sukces",
+	"commonSuccessMessage": "Nieźle!",
+	"commonErrorTitle": "Błąd",
+	"commonErrorMessage": "Coś poszło nie tak, spróbuj proszę ponownie",
+	"apiCallErrorTitle": "Błąd sieci",
+	"apiCallErrorMessage": "Coś poszło nie tak podczas połączenia z serwerem",
+	"notFoundCode": "404 Nie znaleziono",
+	"notFoundDescription": "Oops! Strona nie została odnaleziona."
 }
