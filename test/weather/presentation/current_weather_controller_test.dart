@@ -8,6 +8,7 @@ import 'package:yet_another_weather_app/weather/domain/weather_failure.dart';
 import 'package:yet_another_weather_app/weather/providers.dart';
 
 import '../../common/fake_app_localizations.dart';
+import '../fake_data.dart';
 
 class MockWeatherUseCase extends Mock implements WeatherUseCase {}
 
@@ -17,17 +18,6 @@ class MockStackTrace extends Mock implements StackTrace {}
 class Listener<T> extends Mock {
   void call(T? previous, T next);
 }
-
-final emptyData = CurrentWeatherModel.empty();
-const loadedData = CurrentWeatherModel(
-  cloudiness: null,
-  humidity: null,
-  iconCode: '',
-  pressure: null,
-  temperature: 15.00,
-  timestamp: null,
-  windSpeed: null,
-);
 
 void main() {
   // a helper method to create a ProviderContainer that overrides the weatherUseCaseProvider
