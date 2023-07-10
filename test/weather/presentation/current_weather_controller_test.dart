@@ -46,103 +46,88 @@ void main() {
     registerFallbackValue(const AsyncLoading<CurrentWeatherModel>());
   });
 
-  group('Current Weather', () {
-    test('controller initialization test', () {
-      final weatherUseCase = MockWeatherUseCase();
+  late MockWeatherUseCase mockWeatherUseCase;
+  late Listener<AsyncValue<CurrentWeatherModel>> listener;
+  late ProviderContainer providerContainer;
 
-      final container = makeProviderContainer(weatherUseCase);
-      final listener = Listener<AsyncValue<CurrentWeatherModel>>();
-      // listen to the provider and call [listener] whenever its value changes
-      container.listen(
-        currentWeatherControllerProvider,
-        listener,
-        fireImmediately: true,
-      );
+  setUp(() {
+    mockWeatherUseCase = MockWeatherUseCase();
+    listener = Listener<AsyncValue<CurrentWeatherModel>>();
+    providerContainer = makeProviderContainer(mockWeatherUseCase);
+    // listen to the provider and call [listener] whenever its value changes
+    providerContainer.listen(
+      currentWeatherControllerProvider,
+      listener,
+      fireImmediately: true,
+    );
+  });
 
-      // verify initial value from build method
-      verify(() => listener(null, AsyncData(emptyData)));
-      verifyNoMoreInteractions(listener);
-    });
+  test('controller initialization test', () {
+    // verify initial value from build method
+    verify(() => listener(null, AsyncData(emptyData)));
+    verifyNoMoreInteractions(listener);
+  });
 
-    test('controller success test', () async {
-      final weatherUseCase = MockWeatherUseCase();
-      when(() => weatherUseCase.getWeather(
-            cityId: any(named: 'cityId'),
-            appId: any(named: 'appId'),
-            units: any(named: 'units'),
-          )).thenAnswer((_) => successFuture(loadedData));
+  test('controller success test', () async {
+    when(() => mockWeatherUseCase.getWeather(
+          cityId: any(named: 'cityId'),
+          appId: any(named: 'appId'),
+          units: any(named: 'units'),
+        )).thenAnswer((_) => successFuture(loadedData));
 
-      final container = makeProviderContainer(weatherUseCase);
-      final listener = Listener<AsyncValue<CurrentWeatherModel>>();
-      // listen to the provider and call [listener] whenever its value changes
-      container.listen(
-        currentWeatherControllerProvider,
-        listener,
-        fireImmediately: true,
-      );
-      final controller =
-          container.read(currentWeatherControllerProvider.notifier);
-      // verify initial value from build method
-      verify(() => listener(null, AsyncData(emptyData)));
-      // run
-      await controller.getWeather();
-      // verify
-      verifyInOrder([
-        () => listener(
-            AsyncValue.data(emptyData), any(that: isA<AsyncLoading>())),
-        () => listener(
-            any(that: isA<AsyncLoading>()), const AsyncValue.data(loadedData)),
-      ]);
-      verifyNoMoreInteractions(listener);
-      verify(() => weatherUseCase.getWeather(
-            cityId: any(named: 'cityId'),
-            appId: any(named: 'appId'),
-            units: any(named: 'units'),
-          )).called(1);
-    });
+    // verify initial value from build method
+    verify(() => listener(null, AsyncData(emptyData)));
+    // run
+    await providerContainer
+        .read(currentWeatherControllerProvider.notifier)
+        .getWeather();
+    // verify
+    verifyInOrder([
+      () =>
+          listener(AsyncValue.data(emptyData), any(that: isA<AsyncLoading>())),
+      () => listener(
+          any(that: isA<AsyncLoading>()), const AsyncValue.data(loadedData)),
+    ]);
+    verifyNoMoreInteractions(listener);
+    verify(() => mockWeatherUseCase.getWeather(
+          cityId: any(named: 'cityId'),
+          appId: any(named: 'appId'),
+          units: any(named: 'units'),
+        )).called(1);
+  });
 
-    test('controller failure test', () async {
-      final weatherUseCase = MockWeatherUseCase();
-      when(() => weatherUseCase.getWeather(
-            cityId: any(named: 'cityId'),
-            appId: any(named: 'appId'),
-            units: any(named: 'units'),
-          )).thenAnswer(
-        (_) => failureFuture(
-          WeatherFailure.unknown(
-            appLocalizations: FakeAppLocalizations(),
-            stackTrace: MockStackTrace(),
-          ),
+  test('controller failure test', () async {
+    when(() => mockWeatherUseCase.getWeather(
+          cityId: any(named: 'cityId'),
+          appId: any(named: 'appId'),
+          units: any(named: 'units'),
+        )).thenAnswer(
+      (_) => failureFuture(
+        WeatherFailure.unknown(
+          appLocalizations: FakeAppLocalizations(),
+          stackTrace: MockStackTrace(),
         ),
-      );
+      ),
+    );
 
-      final container = makeProviderContainer(weatherUseCase);
-      final listener = Listener<AsyncValue<CurrentWeatherModel>>();
-      // listen to the provider and call [listener] whenever its value changes
-      container.listen(
-        currentWeatherControllerProvider,
-        listener,
-        fireImmediately: true,
-      );
-      final controller =
-          container.read(currentWeatherControllerProvider.notifier);
-      // verify initial value from build method
-      verify(() => listener(null, AsyncData(emptyData)));
-      // run
-      await controller.getWeather();
-      // verify
-      verifyInOrder([
-        () => listener(
-            AsyncValue.data(emptyData), any(that: isA<AsyncLoading>())),
-        () => listener(
-            any(that: isA<AsyncLoading>()), any(that: isA<AsyncError>())),
-      ]);
-      verifyNoMoreInteractions(listener);
-      verify(() => weatherUseCase.getWeather(
-            cityId: any(named: 'cityId'),
-            appId: any(named: 'appId'),
-            units: any(named: 'units'),
-          )).called(1);
-    });
+    // verify initial value from build method
+    verify(() => listener(null, AsyncData(emptyData)));
+    // run
+    await providerContainer
+        .read(currentWeatherControllerProvider.notifier)
+        .getWeather();
+    // verify
+    verifyInOrder([
+      () =>
+          listener(AsyncValue.data(emptyData), any(that: isA<AsyncLoading>())),
+      () => listener(
+          any(that: isA<AsyncLoading>()), any(that: isA<AsyncError>())),
+    ]);
+    verifyNoMoreInteractions(listener);
+    verify(() => mockWeatherUseCase.getWeather(
+          cityId: any(named: 'cityId'),
+          appId: any(named: 'appId'),
+          units: any(named: 'units'),
+        )).called(1);
   });
 }
